@@ -17,26 +17,37 @@ alias alias-test='echo success'
 s1() {
     # 定义要尝试的命令数组，按优先级排序
     local commands=("start" "start-test05" "start-test04" "start-test03" "start-test02" "start-test01")
-    ~
-    # 遍历命令数组中的每个命令
-    for cmd in "${commands[@]}"; do
-        echo "尝试运行 pnpm run $cmd..."  # 输出当前尝试的命令
-        result=$(pnpm run $cmd)
-        if [[ $? -eq 0 && ! "$result" =~ "ERR_PNPM_NO_SCRIPT" && ! "$result" =~ "ERR_PNPM_NO_SCRIPT_OR_SERVER" ]]; then  # 检查命令退出状态和结果内容
-            echo "pnpm run $cmd 成功执行"  # 如果成功，输出成功信息
-            return 0                      # 返回成功状态码并退出函数
-        # else
-        #     echo "pnpm run $cmd 失败"      # 如果失败，输出失败信息
-        #     # 如果不是最后一个命令，继续尝试下一个
-        #     if [ "$cmd" != "${commands[-1]}" ]; then
-        #         echo "尝试下一个命令..."    # 提示将尝试下一个命令
-        #     fi
-        fi
-    done
+    
+    # 读取package.json中的scripts部分
+    if [ -f "package.json" ]; then
+        # echo "正在读取package.json中的scripts..."
+        # 使用jq提取所有script命令名称
+      
+        # 如果没有jq，使用grep和sed提取
+        available_scripts=$(grep -o '"[^"]*": "' package.json | sed 's/": "//g' | sed 's/"//g')
+        
+        # 遍历预定义命令，检查是否在package.json中存在
+        for cmd in "${commands[@]}"; do
+            if echo "$available_scripts" | grep -q "^$cmd$"; then
+                echo "pnpm run $cmd"
+                pnpm run $cmd
+                # result=$(pnpm run $cmd)
+                # if [[ $? -eq 0 && ! "$result" =~ "ERR_PNPM_NO_SCRIPT" && ! "$result" =~ "ERR_PNPM_NO_SCRIPT_OR_SERVER" ]]; then
+                    # echo "pnpm run $cmd 成功执行"
+                    return 0
+                # fi
+            # else
+                # echo "脚本 $cmd 在package.json中不存在，跳过"
+            fi
+        done
+    else
+        echo "当前目录下没有找到package.json文件"
+        return 1
+    fi
     
     # 如果所有命令都失败，输出总体失败信息
-    echo "所有命令都执行失败"
-    return 1                              # 返回失败状态码
+    echo "所有命令都执行失败或不存在"
+    return 1
 }
 
 

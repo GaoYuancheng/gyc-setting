@@ -1,3 +1,7 @@
+# [user]
+# 	name = gaoyuancheng
+# 	email = 389152147@qq.com
+
 [http]
 	sslVerify = false
 	# proxy = 127.0.0.1:7897

@@ -11,6 +11,6 @@ source D:/git-repo-m/gyc-setting/.bash_profile
 
 ```bash
 # ~/.gitconfig
-[includeIf "gitdir:D:/git-repo-m/gyc-setting"]
+[include]
 	path = D:/git-repo-m/gyc-setting/.gitconfig
 ```

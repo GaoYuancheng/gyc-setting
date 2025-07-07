@@ -3,6 +3,8 @@ alias cw='code D:/git-repo-w'
 alias cdcm='cd D:/git-repo-m'
 alias cdcw='cd D:/git-repo-w'
 
+alias sd='yarn dev:h5'
+
 alias rmn='rm -rf node_modules'
 
 # origin/feature/gyc-syncImage@20231110 -t 分割符 -k 分割完后序号 -r 倒序

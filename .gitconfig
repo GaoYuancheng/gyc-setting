@@ -1,0 +1,11 @@
+[http]
+	sslVerify = false
+	# proxy = 127.0.0.1:7897
+[alias]
+	# git log https://zhuanlan.zhihu.com/p/629756328
+	# 时间 a week ago
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	# 时间 2024-03-12 14:57:26
+	lg1 = log --color --graph --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit 
+
+

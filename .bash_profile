@@ -53,27 +53,25 @@ s1() {
 }
 
 
-# gitclone 之后自动打开项目
+# gitclone 之后自动打开项目，支持 git clone 后续所有参数
 gitclone (){
     # 检查参数是否存在
-    if [ $# -ne 1 ]; then
-        echo "用法: $0 <仓库URL>"
+    if [ $# -lt 1 ]; then
+        echo "用法: $0 <仓库URL> [git clone 其他参数]"
         exit 1
     fi
 
     REPO_URL="$1"
     DIR_NAME=$(basename "$REPO_URL" .git)  # 自动去除.git后缀
 
-    # 执行克隆操作
+    # 执行克隆操作，带上所有参数
     echo "正在克隆仓库: $REPO_URL"
-    git clone "$REPO_URL"
+    git clone "$@"
 
     # 检查克隆是否成功
     if [ $? -eq 0 ]; then
-        echo "克隆成功，正在进入目录: $DIR_NAME"
-        cd "$DIR_NAME" && code .
-        # 显示当前目录确认
-        pwd
+        echo "克隆成功，即将打开目录: $(pwd)/$DIR_NAME"
+        code "$DIR_NAME"
     else
         echo "错误：仓库克隆失败"
     fi

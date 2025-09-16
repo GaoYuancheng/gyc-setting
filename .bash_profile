@@ -64,6 +64,13 @@ gitclone (){
     REPO_URL="$1"
     DIR_NAME=$(basename "$REPO_URL" .git)  # 自动去除.git后缀
 
+    # 检查目标文件夹是否已存在
+    if [ -d "$DIR_NAME" ]; then
+        echo "目录 $DIR_NAME 已存在，直接打开"
+        code "$DIR_NAME"
+        return 0
+    fi
+
     # 执行克隆操作，带上所有参数
     echo "正在克隆仓库: $REPO_URL"
     git clone "$@"

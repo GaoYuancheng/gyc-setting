@@ -1,6 +1,6 @@
 # [user]
 # 	name = gaoyuancheng
-# 	email = 389152147@qq.com
+# 	emlail = 389152147@qq.com
 
 [http]
 	sslVerify = false
@@ -13,4 +13,4 @@
 	lg1 = log --color --graph --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit 
 
 	rv = remote -v
-
+	cm = commit -m

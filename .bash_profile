@@ -1,7 +1,14 @@
-alias cm='code D:/git-repo-m'
-alias cw='code D:/git-repo-w'
-alias cdcm='cd D:/git-repo-m'
-alias cdcw='cd D:/git-repo-w'
+# 编辑器变量
+EDITOR=trae
+
+# 目录变量
+export GIT_REPO_M="D:/git-repo-m"
+export GIT_REPO_W="D:/git-repo-w"
+
+alias cm='$EDITOR $GIT_REPO_M'
+alias cw='$EDITOR $GIT_REPO_W'
+alias cdcm='cd $GIT_REPO_M'
+alias cdcw='cd $GIT_REPO_W'
 
 alias sd='yarn dev:h5'
 
@@ -67,7 +74,7 @@ gitclone (){
     # 检查目标文件夹是否已存在
     if [ -d "$DIR_NAME" ]; then
         echo "目录 $DIR_NAME 已存在，直接打开"
-        code "$DIR_NAME"
+        $EDITOR "$DIR_NAME"
         return 0
     fi
 
@@ -78,7 +85,7 @@ gitclone (){
     # 检查克隆是否成功
     if [ $? -eq 0 ]; then
         echo "克隆成功，即将打开目录: $(pwd)/$DIR_NAME"
-        code "$DIR_NAME"
+        $EDITOR "$DIR_NAME"
     else
         echo "错误：仓库克隆失败"
     fi
